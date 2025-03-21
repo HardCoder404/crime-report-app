@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { Select } from 'antd';
 
 export default function SignUp() {
   const router = useRouter();
@@ -169,20 +170,26 @@ export default function SignUp() {
                 Role
               </label>
               <div className="mt-1">
-                <select
+                <Select
                   id="role"
-                  name="role"
-                  required
-                  value={formData.role || ""}
-                  onChange={handleChange}
-                  className="appearance-none block w-full px-3 py-2 border border-neutral-800 rounded-lg bg-neutral-900 placeholder-neutral-500 text-neutral-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/20"
-                >
-                  <option value="" disabled>
-                    Select your role
-                  </option>
-                  <option value="USER">User</option>
-                  <option value="ADMIN">Admin</option>
-                </select>
+                  placeholder="Select your role"
+                  className="w-full h-12"
+                  popupClassName="custom-dropdown"
+                  value={formData.role || undefined}
+                  onChange={(value) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      role: value,
+                    }))
+                  }
+                  filterOption={(input, option) =>
+                    (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+                  }
+                  options={[
+                    { value: 'MODERATOR', label: 'Moderator' },
+                    { value: 'ADMIN', label: 'Admin' },
+                  ]}
+                />
               </div>
             </div>
 

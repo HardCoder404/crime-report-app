@@ -43,7 +43,7 @@ export default function Navbar() {
                 { href: "/submit-report", label: "Submit Report" },
                 { href: "/track-report", label: "Track Report" },
                 { href: "/how-it-works", label: "How It Works" },
-                { href: "/resources", label: "Resources" },
+                { href: "/auth/signin", label: "Admin Login" },
               ].map((link) => (
                 <Link
                   key={link.href}

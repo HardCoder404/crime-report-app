@@ -3,6 +3,7 @@
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function SignIn() {
   const router = useRouter();
@@ -25,8 +26,9 @@ export default function SignIn() {
 
       if (result?.error) {
         setError("Invalid credentials");
-      } else {      
-        router.push("/dashboard");
+      } else {        
+        window.location.href = "/dashboard"; 
+        // router.push("/dashboard");
       }
     } catch (error) {
       setError("An error occurred during sign in");
@@ -108,11 +110,21 @@ export default function SignIn() {
                 {isLoading ? (
                   <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
                 ) : (
-                  "Sign in"
+                  "Login as Admin"
                 )}
               </button>
             </div>
           </form>
+
+          <div className="mt-6 text-center text-sm">
+            <span className="text-neutral-400">Are you new?</span>{" "}
+            <Link
+              href="/auth/signup"
+              className="text-blue-500 hover:text-blue-400 font-medium"
+            >
+              Register
+            </Link>
+          </div>
         </div>
       </div>
     </div>

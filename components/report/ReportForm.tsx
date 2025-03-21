@@ -294,8 +294,8 @@ export function ReportForm({ onComplete }: ReportFormProps) {
           onChange={(value) =>
             setFormData((prev) => ({ ...prev, specificType: value }))
           }
-          className="w-full h-12 text-lg"
-          dropdownClassName="custom-dropdown"
+          className="w-full h-12"
+          popupClassName="custom-dropdown"
           filterOption={(input, option) =>
             (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
           }

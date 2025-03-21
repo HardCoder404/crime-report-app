@@ -7,6 +7,8 @@ export default withAuth(
     const isAdmin = token?.role === "ADMIN";
     const isModerator = token?.role === "MODERATOR";
 
+    console.log("isAdmin", token?.role);
+   
     if (
       req.nextUrl.pathname.startsWith("/dashboard") &&
       !isAdmin &&

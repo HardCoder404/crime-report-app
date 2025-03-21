@@ -147,3 +147,155 @@ textarea::-webkit-scrollbar-thumb {
 textarea::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(to bottom right, #38bdf8, #3b82f6); /* hover:from-sky-400 hover:to-blue-500 */
 }
+
+
+
+
+/* Custom Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000; /* Dark background */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #4a90e2; /* Blue scrollbar */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #357ABD; /* Darker blue on hover */
+}
+
+/* 1. Override default blue border */
+.ant-picker {
+  border-color: #262626 !important; /* neutral-800 */
+}
+.ant-picker:hover,
+.ant-picker-focused {
+  border-color: #262626 !important;
+  box-shadow: none !important;
+}
+
+/* 2. Change calendar and close icon color */
+.ant-picker-suffix,
+.ant-picker-clear {
+  color: #a3a3a3 !important; /* neutral-300 */
+}
+
+/* 3. Set calendar dropdown background to neutral-900 */
+.ant-picker-panel-container {
+  background-color: #171717 !important; /* neutral-900 */
+}
+.ant-picker-panel {
+  background-color: #171717 !important;
+}
+
+/* 2. Change calendar text color to white */
+.ant-picker-cell,
+.ant-picker-header,
+.ant-picker-content th {
+  color: #ffffff !important; /* white */
+}
+/* 3. Change month & year selector text color */
+.ant-picker-header-view {
+  color: #ffffff !important;
+}
+
+/* 4. Change disabled dates color */
+.ant-picker-cell-disabled {
+  color: #737373 !important; /* neutral-500 */
+}
+
+/* 5. Change hover effect */
+.ant-picker-cell:hover .ant-picker-cell-inner {
+  background-color: #262626 !important; /* neutral-800 */
+  color: #ffffff !important;
+}
+
+.ant-picker-panel-container {
+  background-color: #171717 !important; /* neutral-900 */
+}
+.ant-picker-panel {
+  background-color: #171717 !important;
+}
+/* 4. Change selected date to dark gray */
+.ant-picker-cell-selected .ant-picker-cell-inner {
+  background-color: red !important; /* dark gray */
+}
+
+/* 5. Remove blue underline from range start and end */
+.ant-picker-cell-range-start,
+.ant-picker-cell-range-end,
+.ant-picker-cell-range-hover {
+  background: #262626 !important; /* neutral-800 */
+  color: #a3a3a3 !important; /* neutral-300 */
+}
+
+/* 6. 🌑 Change selected date range background to gray-600 */
+.ant-picker-cell-in-range::before {
+  background-color: #525252 !important; /* gray-600 */
+}
+
+/* 7. 🌑 Change selected start and end date background to gray-600 */
+.ant-picker-cell-selected .ant-picker-cell-inner {
+  background-color: #525252 !important; /* gray-600 */
+  color: white !important;
+}
+
+/* 8. 🌑 Change hover effect for range selection */
+.ant-picker-cell-range-hover-start::before,
+.ant-picker-cell-range-hover-end::before {
+  background-color: #6b7280 !important; /* gray-500 */
+}
+
+/* 9. 🎨 Change "Last 7 Days", "Last 14 Days" preset text color to neutral-300 */
+.ant-picker-presets li {
+  color: #d4d4d4 !important; /* neutral-300 */
+}
+
+/* 10. Change preset hover effect */
+.ant-picker-presets li:hover {
+  color: #ffffff !important; /* white */
+}
+
+/* 11. 🛠️ Fix DatePicker box background when open */
+.ant-picker {
+  background-color: #171717 !important; /* neutral-900 */
+  border-color: #262626 !important; /* neutral-800 */
+}
+
+/* 12. 🛠️ Fix focus outline when clicking */
+.ant-picker-focused {
+  background-color: #171717 !important; /* neutral-900 */
+  border-color: #525252 !important; /* gray-600 */
+}
+
+/* 13. 🛠️ Change text color inside input field */
+.ant-picker-input > input {
+  color: #d4d4d4 !important; /* neutral-300 */
+}
+
+/* 1. 🌑 Change single & double left/right arrows to white */
+.ant-picker-header-prev-btn,
+.ant-picker-header-super-prev-btn, /* « (Double Left) */
+.ant-picker-header-next-btn,
+.ant-picker-header-super-next-btn  /* » (Double Right) */ {
+  color: #ffffff !important; /* White */
+}
+
+/* 2. 🌑 Change hover effect for all arrows */
+.ant-picker-header-prev-btn:hover,
+.ant-picker-header-super-prev-btn:hover,
+.ant-picker-header-next-btn:hover,
+.ant-picker-header-super-next-btn:hover {
+  color: #d4d4d4 !important; /* neutral-300 */
+}
+/* Change placeholder text color to neutral-300 */
+.ant-picker-input > input::placeholder {
+  color: #d4d4d4 !important; /* neutral-300 */
+  opacity: 1; /* Ensure visibility */
+}
+

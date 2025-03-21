@@ -4,6 +4,10 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { Report, ReportStatus, ReportType } from "@prisma/client";
 import { signOut } from "next-auth/react";
+import { DatePicker, Select, TimeRangePickerProps } from "antd";
+import dayjs, { Dayjs } from 'dayjs';
+import isBetween from 'dayjs/plugin/isBetween';
+dayjs.extend(isBetween);
 
 export default function Dashboard() {
   const { data: session } = useSession();
@@ -11,6 +15,7 @@ export default function Dashboard() {
   const [filter, setFilter] = useState<ReportStatus | "ALL">("ALL");
   const [typeFilter, setTypeFilter] = useState<ReportType | "ALL">("ALL");
   const [isLoading, setIsLoading] = useState(true);
+  const [dateRange, setDateRange] = useState<[Dayjs | null, Dayjs | null] | null>(null);
 
   useEffect(() => {
     fetchReports();
@@ -29,6 +34,7 @@ export default function Dashboard() {
     }
   };
 
+
   const updateReportStatus = async (
     reportId: string,
     newStatus: ReportStatus
@@ -41,10 +47,6 @@ export default function Dashboard() {
         },
         body: JSON.stringify({ status: newStatus }),
       });
-
-      if (response.ok) {
-        fetchReports();
-      }
     } catch (error) {
       console.error("Error updating report:", error);
     }
@@ -53,8 +55,26 @@ export default function Dashboard() {
   const filteredReports = reports.filter((report) => {
     const statusMatch = filter === "ALL" || report.status === filter;
     const typeMatch = typeFilter === "ALL" || report.type === typeFilter;
-    return statusMatch && typeMatch;
+    const dateMatch =
+      !dateRange ||
+      (dateRange[0] &&
+        dateRange[1] &&
+        dayjs(report.createdAt).isBetween(dateRange[0], dateRange[1], "day", "[]"));
+    return statusMatch && typeMatch && dateMatch;
   });
+
+  const rangePresets: TimeRangePickerProps['presets'] = [
+    { label: 'Today', value: [dayjs().startOf('day'), dayjs().endOf('day')] },
+    { label: 'Yesterday', value: [dayjs().subtract(1, 'day').startOf('day'), dayjs().subtract(1, 'day').endOf('day')] },
+    { label: 'Last 7 Days', value: [dayjs().subtract(7, 'day'), dayjs()] },
+    { label: 'Last 14 Days', value: [dayjs().subtract(14, 'day'), dayjs()] },
+    { label: 'Last 30 Days', value: [dayjs().subtract(30, 'day'), dayjs()] },
+    { label: 'Last 90 Days', value: [dayjs().subtract(90, 'day'), dayjs()] },
+  ];
+
+  const onRangeChange = (dates: [Dayjs | null, Dayjs | null] | null) => {
+    setDateRange(dates);
+  };
 
   const getStatusColor = (status: ReportStatus) => {
     const colors = {
@@ -77,6 +97,7 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-black text-white">
+      {/* navbar  */}
       <nav className="border-b border-neutral-800 bg-black/50 backdrop-blur-xl sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex justify-between items-center">
@@ -101,35 +122,40 @@ export default function Dashboard() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8 flex flex-wrap gap-4 items-center justify-between">
           <div className="flex gap-4">
-            <select
+            <Select
               value={filter}
-              onChange={(e) =>
-                setFilter(e.target.value as ReportStatus | "ALL")
-              }
-              className="bg-neutral-900 border border-neutral-800 text-neutral-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/20"
-            >
-              <option value="ALL">All Statuses</option>
-              {Object.values(ReportStatus).map((status) => (
-                <option key={status} value={status}>
-                  {status}
-                </option>
-              ))}
-            </select>
+              onChange={(value) => setFilter(value as ReportStatus | "ALL")}
+              className="w-60 h-12 bg-neutral-900 text-neutral-300 rounded-lg"
+              popupClassName="custom-dropdown"
+              options={[
+                { value: "ALL", label: "All Status" },
+                ...Object.values(ReportStatus).map((status) => ({
+                  value: status,
+                  label: status,
+                })),
+              ]}
+            />
 
-            <select
+            <Select
               value={typeFilter}
-              onChange={(e) =>
-                setTypeFilter(e.target.value as ReportType | "ALL")
-              }
-              className="bg-neutral-900 border border-neutral-800 text-neutral-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/20"
-            >
-              <option value="ALL">All Types</option>
-              {Object.values(ReportType).map((type) => (
-                <option key={type} value={type}>
-                  {type}
-                </option>
-              ))}
-            </select>
+              onChange={(value) => setTypeFilter(value as ReportType | "ALL")}
+              className="w-60 h-12 bg-neutral-900 text-neutral-300 rounded-lg"
+              popupClassName="custom-dropdown"
+              options={[
+                { value: "ALL", label: "All Types" },
+                ...Object.values(ReportType).map((type) => ({
+                  value: type,
+                  label: type,
+                })),
+              ]}
+            />
+
+            <DatePicker.RangePicker
+              className="w-60 h-12 bg-neutral-900 border-neutral-800 hover:bg-neutral-900 hover:border-none text-neutral-300 rounded-lg"
+              presets={rangePresets}
+              onChange={onRangeChange}
+            />
+
           </div>
 
           <div className="text-neutral-400">
@@ -188,22 +214,26 @@ export default function Dashboard() {
                     />
                   )}
                 </div>
-                <select
+                <Select
                   value={report.status}
-                  onChange={(e) =>
-                    updateReportStatus(
-                      report.id,
-                      e.target.value as ReportStatus
-                    )
-                  }
-                  className="bg-neutral-900 border border-neutral-800 text-neutral-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/20"
-                >
-                  {Object.values(ReportStatus).map((status) => (
-                    <option key={status} value={status}>
-                      {status}
-                    </option>
-                  ))}
-                </select>
+                  onChange={(value) => {
+                    // Optimistically update the UI
+                    setReports((prevReports) =>
+                      prevReports.map((r) =>
+                        r.id === report.id ? { ...r, status: value as ReportStatus } : r
+                      )
+                    );
+
+                    // Perform the API call in the background
+                    updateReportStatus(report.id, value as ReportStatus);
+                  }}
+                  className="bg-neutral-900 text-neutral-300 rounded-lg"
+                  popupClassName="custom-dropdown"
+                  options={Object.values(ReportStatus).map((status) => ({
+                    value: status,
+                    label: status,
+                  }))}
+                />
               </div>
             </div>
           ))}

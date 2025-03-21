@@ -48,6 +48,7 @@ export function ReportTracker() {
       setLoading(false);
     }
   };
+  
 
   return (
     <div className="w-full">
@@ -225,10 +226,11 @@ export function ReportTracker() {
 
 function getStatusColor(status: string): string {
   const statusColors: Record<string, string> = {
-    pending: "text-yellow-400",
-    processing: "text-sky-400",
-    completed: "text-emerald-400",
-    failed: "text-red-400",
+    PENDING: "bg-amber-500/10 text-amber-500 border border-amber-500/20",
+    IN_PROGRESS: "bg-orange-500/10 text-orange-500 border border-orange-500/20",
+    RESOLVED: "bg-green-500/10 text-green-500 border border-green-500/20",
+    DISMISSED:
+      "bg-neutral-500/10 text-neutral-400 border border-neutral-500/20",
   };
-  return statusColors[status.toLowerCase()] || "text-white";
+  return statusColors[status] || "text-white";
 }
