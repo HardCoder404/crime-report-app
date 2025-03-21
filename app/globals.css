@@ -76,3 +76,74 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+.custom-dropdown {
+  background-color: #1a1a1a !important; /* Dark background */
+  color: white !important; /* White text */
+  border: 1px solid #333 !important; /* Border color */
+}
+
+/* Select Box Styles */
+.ant-select-selector {
+  background-color: rgba(24, 24, 27, 0.5) !important; /* Matches bg-zinc-900/50 */
+  border: 1px solid #27272a !important; /* Matches border-zinc-800 */
+  border-radius: 0.75rem !important; /* Matches rounded-xl */
+  padding: 14px 16px !important; /* Matches px-4 py-3.5 */
+  color: white !important; /* Matches text-white */
+  transition: all 0.2s ease-in-out !important; /* Ensure smooth effect */
+}
+
+/* Placeholder & Selected Text */
+.ant-select-selection-placeholder,
+.ant-select-selection-item {
+  color: #a1a1aa !important;
+  font-size: 16px !important;
+}
+
+
+/* Dropdown Items */
+.custom-dropdown .ant-select-item {
+  color: white !important;
+}
+
+.custom-dropdown .ant-select-item-option-active {
+  background-color: #333 !important;
+}
+
+.custom-dropdown .ant-select-item-option-selected {
+  background-color: #444 !important;
+}
+
+/* Search Icon Color Fix */
+.ant-select-selection-search-icon {
+  color: white !important;
+}
+
+/* Focus Effect */
+.ant-select-focused .ant-select-selector {
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.4) !important; /* Matches focus:ring-2 focus:ring-sky-500/40 */
+}
+
+/* Scrollbar width */
+textarea::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Scrollbar track */
+textarea::-webkit-scrollbar-track {
+  background: rgba(24, 24, 27, 0.5); /* Matches bg-zinc-900/50 */
+  border-radius: 5px;
+}
+
+/* Scrollbar thumb (gradient effect like button) */
+textarea::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom right, #0ea5e9, #2563eb); /* from-sky-500 to-blue-600 */
+  border-radius: 8px;
+  /* border: 2px solid rgba(24, 24, 27, 0.5); Matches border-zinc-800 */
+}
+
+/* Scrollbar thumb hover effect */
+textarea::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom right, #38bdf8, #3b82f6); /* hover:from-sky-400 hover:to-blue-500 */
+}

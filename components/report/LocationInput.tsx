@@ -76,9 +76,7 @@ export function LocationInput({
         Location
       </label>
       <div className="relative">
-        <AddressAutofill
-          accessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || ""}
-        >
+       
           <input
             type="text"
             autoComplete="street-address"
@@ -89,7 +87,7 @@ export function LocationInput({
                      text-white transition-colors duration-200
                      focus:outline-none focus:ring-2 focus:ring-sky-500/40"
           />
-        </AddressAutofill>
+        {/* </AddressAutofill> */}
         <button
           type="button"
           onClick={getLocation}

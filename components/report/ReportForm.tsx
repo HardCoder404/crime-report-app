@@ -3,6 +3,8 @@
 import { useState, useCallback } from "react";
 import { LocationInput } from "./LocationInput";
 import crypto from "crypto";
+import { Select } from 'antd';
+
 
 const REPORT_TYPES = [
   "Theft",
@@ -75,6 +77,16 @@ export function ReportForm({ onComplete }: ReportFormProps) {
     }
   };
 
+  const isFormValid = useCallback(() => {
+    return (
+      formData.incidentType &&
+      formData.specificType &&
+      formData.location &&
+      formData.title &&
+      formData.description
+    );
+  }, [formData]);
+
   const generateReportId = useCallback(() => {
     const timestamp = Date.now().toString();
     const randomBytes = crypto.randomBytes(16).toString("hex");
@@ -135,11 +147,10 @@ export function ReportForm({ onComplete }: ReportFormProps) {
           onClick={() =>
             setFormData((prev) => ({ ...prev, incidentType: "EMERGENCY" }))
           }
-          className={`p-6 rounded-2xl border-2 transition-all duration-200 ${
-            formData.incidentType === "EMERGENCY"
+          className={`p-6 rounded-2xl border-2 transition-all duration-200 ${formData.incidentType === "EMERGENCY"
               ? "bg-red-500/20 border-red-500 shadow-lg shadow-red-500/20"
               : "bg-zinc-900/50 border-zinc-800 hover:bg-red-500/10 hover:border-red-500/50"
-          }`}
+            }`}
         >
           <div className="flex flex-col items-center space-y-2">
             <svg
@@ -167,11 +178,10 @@ export function ReportForm({ onComplete }: ReportFormProps) {
           onClick={() =>
             setFormData((prev) => ({ ...prev, incidentType: "NON_EMERGENCY" }))
           }
-          className={`p-6 rounded-2xl border-2 transition-all duration-200 ${
-            formData.incidentType === "NON_EMERGENCY"
+          className={`p-6 rounded-2xl border-2 transition-all duration-200 ${formData.incidentType === "NON_EMERGENCY"
               ? "bg-orange-500/20 border-orange-500 shadow-lg shadow-orange-500/20"
               : "bg-zinc-900/50 border-zinc-800 hover:bg-orange-500/10 hover:border-orange-500/50"
-          }`}
+            }`}
         >
           <div className="flex flex-col items-center space-y-2">
             <svg
@@ -276,23 +286,27 @@ export function ReportForm({ onComplete }: ReportFormProps) {
         <label className="block text-sm font-medium text-zinc-400 mb-2">
           Incident Type
         </label>
-        <select
-          value={formData.specificType}
-          onChange={(e) =>
-            setFormData((prev) => ({ ...prev, specificType: e.target.value }))
+
+        <Select
+          showSearch
+          placeholder="Select type"
+          value={formData.specificType || undefined}
+          onChange={(value) =>
+            setFormData((prev) => ({ ...prev, specificType: value }))
           }
-          className="w-full rounded-xl bg-zinc-900/50 border border-zinc-800 px-4 py-3.5
-                   text-white transition-colors duration-200
-                   focus:outline-none focus:ring-2 focus:ring-sky-500/40"
-          required
-        >
-          <option value="">Select type</option>
-          {REPORT_TYPES.map((type) => (
-            <option key={type} value={type}>
-              {type}
-            </option>
-          ))}
-        </select>
+          className="w-full h-12 text-lg"
+          dropdownClassName="custom-dropdown"
+          filterOption={(input, option) =>
+            (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+          }
+          options={REPORT_TYPES.map((type) => ({
+            value: type,
+            label: type
+          }))}
+          
+        />
+
+        
       </div>
 
       {/* Location */}
@@ -340,7 +354,7 @@ export function ReportForm({ onComplete }: ReportFormProps) {
           rows={4}
           className="w-full rounded-xl bg-zinc-900/50 border border-zinc-800 px-4 py-3.5
                    text-white transition-colors duration-200
-                   focus:outline-none focus:ring-2 focus:ring-sky-500/40"
+                   focus:outline-none focus:ring-2 focus:ring-sky-500/40 resize-none"
           required
         />
       </div>
@@ -348,11 +362,11 @@ export function ReportForm({ onComplete }: ReportFormProps) {
       {/* Submit Button */}
       <button
         type="submit"
-        disabled={isSubmitting}
+        disabled={!isFormValid() || isSubmitting}
         className="w-full relative group overflow-hidden rounded-xl bg-gradient-to-br from-sky-500 to-blue-600 
-                 px-4 py-3.5 text-sm font-medium text-white shadow-lg
-                 transition-all duration-200 hover:from-sky-400 hover:to-blue-500
-                 disabled:opacity-50 disabled:cursor-not-allowed"
+           px-4 py-3.5 text-sm font-medium text-white shadow-lg
+           transition-all duration-200 hover:from-sky-400 hover:to-blue-500
+           disabled:opacity-50 disabled:cursor-not-allowed"
       >
         <div className="relative flex items-center justify-center gap-2">
           {isSubmitting ? (
