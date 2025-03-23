@@ -22,12 +22,12 @@ export default function SignIn() {
         email,
         password,
         redirect: false,
-      });      
+      });
 
       if (result?.error) {
         setError("Invalid credentials");
-      } else {        
-        window.location.href = "/dashboard"; 
+      } else {
+        window.location.href = "/dashboard";
         // router.push("/dashboard");
       }
     } catch (error) {
@@ -93,6 +93,13 @@ export default function SignIn() {
                   placeholder="Enter your password"
                 />
               </div>
+            </div>
+
+            <div className="text-white font-normal text-sm hover:underline cursor-pointer">
+              <Link
+                href="/auth/forgot-password">
+                forgot Password?
+              </Link>
             </div>
 
             {error && (

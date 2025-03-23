@@ -43,9 +43,11 @@ export default function SignUp() {
       });
 
       const data = await response.json();
+      console.log("Data: ",data);
+      
 
       if (!response.ok) {
-        throw new Error(data.message || "Something went wrong");
+        throw new Error(data.error || "Something went wrong");
       }
 
       router.push("/auth/signin");

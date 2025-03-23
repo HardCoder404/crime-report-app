@@ -296,6 +296,6 @@ textarea::-webkit-scrollbar-thumb:hover {
 /* Change placeholder text color to neutral-300 */
 .ant-picker-input > input::placeholder {
   color: #d4d4d4 !important; /* neutral-300 */
-  opacity: 1; /* Ensure visibility */
+  opacity: 0.8; /* Ensure visibility */
 }
 

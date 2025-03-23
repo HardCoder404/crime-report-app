@@ -49,3 +49,11 @@ enum Role {
   MODERATOR
   USER
 } 
+
+model Otp {
+  id        Int      @id @default(autoincrement())
+  email     String
+  otp       String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}

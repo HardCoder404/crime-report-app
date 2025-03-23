@@ -52,7 +52,7 @@ export default function Dashboard() {
     }
   };
 
-  const filteredReports = reports.filter((report) => {
+  const filteredReports = reports?.filter((report) => {
     const statusMatch = filter === "ALL" || report.status === filter;
     const typeMatch = typeFilter === "ALL" || report.type === typeFilter;
     const dateMatch =
@@ -125,7 +125,7 @@ export default function Dashboard() {
             <Select
               value={filter}
               onChange={(value) => setFilter(value as ReportStatus | "ALL")}
-              className="w-60 h-12 bg-neutral-900 text-neutral-300 rounded-lg"
+              className="w-60 h-12 bg-neutral-900 text-neutral-300 rounded-xl"
               popupClassName="custom-dropdown"
               options={[
                 { value: "ALL", label: "All Status" },
@@ -139,7 +139,7 @@ export default function Dashboard() {
             <Select
               value={typeFilter}
               onChange={(value) => setTypeFilter(value as ReportType | "ALL")}
-              className="w-60 h-12 bg-neutral-900 text-neutral-300 rounded-lg"
+              className="w-60 h-12 bg-neutral-900 text-neutral-300 rounded-xl"
               popupClassName="custom-dropdown"
               options={[
                 { value: "ALL", label: "All Types" },
@@ -151,7 +151,7 @@ export default function Dashboard() {
             />
 
             <DatePicker.RangePicker
-              className="w-60 h-12 bg-neutral-900 border-neutral-800 hover:bg-neutral-900 hover:border-none text-neutral-300 rounded-lg"
+              className="w-60 h-12 rounded-xl"
               presets={rangePresets}
               onChange={onRangeChange}
             />
