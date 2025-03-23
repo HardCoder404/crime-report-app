@@ -11,7 +11,7 @@ export default function GetInTouchSection() {
     };
 
     return (
-        <section className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-sky-500/20 via-blue-500/10 to-transparent p-8 sm:p-12">
+        <section className="relative overflow-hidden rounded-2xl p-8 sm:p-12">
             <div className="absolute inset-0 bg-zinc-900 -z-10" />
             <div className="relative z-10 flex flex-col items-center text-center">
                 <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">

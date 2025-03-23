@@ -94,10 +94,10 @@ export default function TestimonialsSection() {
 
                 <div ref={containerRef} className="relative overflow-hidden">
                     {/* Left blur gradient */}
-                    <div className="absolute left-0 top-0 z-10 h-full w-32 bg-gradient-to-r from-zinc-950 to-transparent"></div>
+                    <div className="absolute left-0 top-0 z-10 h-full w-32"></div>
 
                     {/* Right blur gradient */}
-                    <div className="absolute right-0 top-0 z-10 h-full w-32 bg-gradient-to-l from-zinc-950 to-transparent"></div>
+                    <div className="absolute right-0 top-0 z-10 h-full w-32"></div>
 
                     <div className="relative py-8">
                         <motion.div className="flex gap-6" animate={controls} initial={{ x: 0 }}>
