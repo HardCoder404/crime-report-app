@@ -1,21 +1,32 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function MouseMoveEffect() {
-    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+    const pathname = usePathname();
 
     useEffect(() => {
         const handleMouseMove = (event: MouseEvent) => {
-            setMousePosition({ x: event.clientX, y: event.clientY })
-        }
+            // Ignore mouse events on elements with the "no-effect" class
+            if ((event.target as HTMLElement).closest(".no-effect")) {
+                return;
+            }
+            setMousePosition({ x: event.clientX, y: event.clientY });
+        };
 
-        window.addEventListener("mousemove", handleMouseMove)
+        window.addEventListener("mousemove", handleMouseMove);
 
         return () => {
-            window.removeEventListener("mousemove", handleMouseMove)
-        }
-    }, [])
+            window.removeEventListener("mousemove", handleMouseMove);
+        };
+    }, []);
+
+    // Do not render the effect on the /abc route
+    if (pathname === "/dashboard" || pathname === "/contact" || pathname === "/submit-report") {
+        return null;
+    }
 
     return (
         <div
@@ -24,6 +35,5 @@ export default function MouseMoveEffect() {
                 background: `radial-gradient(600px at ${mousePosition.x}px ${mousePosition.y}px, rgba(29, 78, 216, 0.15), transparent 80%)`,
             }}
         />
-    )
+    );
 }
-

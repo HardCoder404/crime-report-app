@@ -119,7 +119,7 @@ export default function Dashboard() {
         </div>
       </nav>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 no-effect">
         <div className="mb-8 flex flex-wrap gap-4 items-center justify-between">
           <div className="flex gap-4">
             <Select

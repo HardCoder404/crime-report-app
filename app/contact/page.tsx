@@ -1,7 +1,29 @@
+"use client"
 import { MapPin, Phone, Mail, Printer } from 'lucide-react';
-import Link from 'next/link';
+import { useState } from 'react';
 
 export default function ContactForm() {
+    const [success, setSuccess] = useState('');
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        phone: '',
+        message: '',
+    });
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        setSuccess('Thank you for reaching out. We will shortly connect with you.');
+        setFormData({ name: '', email: '', phone: '', message: '' });
+        setTimeout(() => {
+            setSuccess('');
+        }, 3000);
+    };
+
     return (
         <>
             <section className="relative overflow-hidden rounded-2xl p-8 sm:p-12">
@@ -10,7 +32,7 @@ export default function ContactForm() {
                     {/* Left Section */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {/* Visit Office */}
-                        <div className="flex flex-col items-center justify-center rounded-xl bg-white/5 border border-white/10 p-6">
+                        <div className="flex flex-col items-center justify-center rounded-xl bg-white/5 border border-white/10 p-6 backdrop-blur-md">
                             <MapPin size={28} className="text-blue-400" />
                             <p className="text-white text-lg font-semibold mt-2">Visit office</p>
                             <p className="text-zinc-400 text-sm text-center">
@@ -19,21 +41,21 @@ export default function ContactForm() {
                         </div>
 
                         {/* Call Us */}
-                        <div className="flex flex-col items-center justify-center rounded-xl bg-white/5 border border-white/10 p-6">
+                        <div className="flex flex-col items-center justify-center rounded-xl bg-white/5 border border-white/10 p-6 backdrop-blur-md">
                             <Phone size={28} className="text-blue-400" />
                             <p className="text-white text-lg font-semibold mt-2">Call us</p>
                             <p className="text-zinc-400 text-sm">+91 9854786525</p>
                         </div>
 
                         {/* Chat to Us */}
-                        <div className="flex flex-col items-center justify-center rounded-xl bg-white/5 border border-white/10 p-6">
+                        <div className="flex flex-col items-center justify-center rounded-xl bg-white/5 border border-white/10 p-6 backdrop-blur-md">
                             <Mail size={28} className="text-blue-400" />
                             <p className="text-white text-lg font-semibold mt-2">Chat to us</p>
-                            <p className="text-zinc-400 text-sm">support@example.com</p>
+                            <p className="text-zinc-400 text-sm">support@SafeReport.com</p>
                         </div>
 
                         {/* Fax */}
-                        <div className="flex flex-col items-center justify-center rounded-xl bg-white/5 border border-white/10 p-6">
+                        <div className="flex flex-col items-center justify-center rounded-xl bg-white/5 border border-white/10 p-6 backdrop-blur-md">
                             <Printer size={28} className="text-blue-400" />
                             <p className="text-white text-lg font-semibold mt-2">Fax</p>
                             <p className="text-zinc-400 text-sm">+1-548-2588</p>
@@ -41,33 +63,45 @@ export default function ContactForm() {
                     </div>
 
                     {/* Right Section */}
-                    <div className='p-5 rounded-2xl bg-gradient-to-br from-sky-500/20 via-blue-500/10 to-transparent'>
+                    <div className='p-5 rounded-2xl bg-gradient-to-br from-sky-500/20 via-blue-500/10 to-transparent backdrop-blur-md'>
                         <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
                             Contact Us
                         </h2>
-                        <form className="mt-6 flex flex-col gap-4">
+                        <form className="mt-6 flex flex-col gap-4" onSubmit={handleSubmit}>
                             <input
                                 type="text"
+                                name="name"
+                                value={formData.name}
+                                onChange={handleChange}
                                 placeholder="Name"
                                 className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-2.5 text-white placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-sky-500/50"
                                 required
                             />
                             <input
                                 type="email"
+                                name="email"
+                                value={formData.email}
+                                onChange={handleChange}
                                 placeholder="Email"
                                 className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-2.5 text-white placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-sky-500/50"
                                 required
                             />
                             <input
                                 type="tel"
+                                name="phone"
+                                value={formData.phone}
+                                onChange={handleChange}
                                 placeholder="Phone No."
-                                className="w-full rounded-xl resize-none bg-white/5 border border-white/10 px-4 py-2.5 text-white placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-sky-500/50"
+                                className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-2.5 text-white placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-sky-500/50"
                                 required
                             />
                             <textarea
+                                name="message"
+                                value={formData.message}
+                                onChange={handleChange}
                                 placeholder="Message"
                                 rows={4}
-                                className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-2.5 text-white placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-sky-500/50"
+                                className="w-full resize-none rounded-xl bg-white/5 border border-white/10 px-4 py-2.5 text-white placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-sky-500/50"
                                 required
                             />
                             <button
@@ -77,6 +111,11 @@ export default function ContactForm() {
                                 Send Message
                             </button>
                         </form>
+                        {success && (
+                            <div className="mt-4 text-green-500 text-center text-sm bg-green-500/10 border border-green-500/20 rounded-lg p-3">
+                                {success}
+                            </div>
+                        )}
                     </div>
                 </div>
             </section>

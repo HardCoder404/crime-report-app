@@ -38,8 +38,8 @@ export default function SignIn() {
   };
 
   return (
-    <div className="min-h-screen bg-black flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+    <div className="bg-black flex items-center min-h-[calc(100vh-4rem)]">
+      <div className="sm:mx-auto sm:w-full sm:max-w-md z-50">
         <h1 className="text-center text-3xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent mb-2">
           Welcome Back
         </h1>
@@ -48,7 +48,7 @@ export default function SignIn() {
         </h2>
       </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+      <div className="sm:mx-auto sm:w-full sm:max-w-md no-effect">
         <div className="bg-neutral-900/50 backdrop-blur-sm py-8 px-4 shadow-xl border border-neutral-800 rounded-xl sm:px-10">
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>

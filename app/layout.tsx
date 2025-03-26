@@ -8,6 +8,7 @@ import NextTopLoader from 'nextjs-toploader';
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import MouseMoveEffect from "@/components/mouse-move-effect";
+import ChatBot from "@/components/chat-bot";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -52,6 +53,7 @@ export default async function RootLayout({
               {children}
             </Providers>
           </main>
+          <ChatBot />
         </div>
       </body>
     </html>

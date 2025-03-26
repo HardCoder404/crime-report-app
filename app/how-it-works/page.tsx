@@ -7,10 +7,12 @@ export default function HowItWorks() {
 
   return (
     <div className="relative min-h-screen bg-black selection:bg-sky-500/20 overflow-hidden">
-      {/* Gradient Background */}
-      <div className="fixed inset-0 -z-10 min-h-screen">
-        <div className="absolute inset-0 h-full bg-[radial-gradient(circle_at_center,rgba(56,189,248,0.03),transparent_50%)]" />
-        <div className="absolute inset-0 h-full bg-[radial-gradient(circle_at_center,rgba(14,165,233,0.04),transparent_70%)]" />
+      {/* Gradient Background (Limited to Hero Section) */}
+      <div className="absolute top-0 left-0 w-full h-[700px]">
+        <div className="absolute inset-0 h-full w-full bg-black before:absolute before:inset-0 before:bg-[linear-gradient(to_right,#ffffff10_1px,transparent_1px),linear-gradient(to_bottom,#ffffff10_1px,transparent_1px)] before:bg-[size:40px_40px]"></div>
+
+        {/* Smooth blending gradient */}
+        <div className="absolute inset-0 h-full w-full bg-gradient-to-b from-transparent to-black"></div>
       </div>
 
       <main className="relative px-6 pt-32">
