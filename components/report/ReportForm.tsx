@@ -141,7 +141,7 @@ export function ReportForm({ onComplete }: ReportFormProps) {
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
       {/* Emergency Type Selection */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <button
           type="button"
           onClick={() =>
@@ -150,7 +150,7 @@ export function ReportForm({ onComplete }: ReportFormProps) {
           className={`p-6 rounded-2xl border-2 transition-all duration-200 ${formData.incidentType === "EMERGENCY"
               ? "bg-red-500/20 border-red-500 shadow-lg shadow-red-500/20"
               : "bg-zinc-900/50 border-zinc-800 hover:bg-red-500/10 hover:border-red-500/50"
-            }`}
+            }`} 
         >
           <div className="flex flex-col items-center space-y-2">
             <svg

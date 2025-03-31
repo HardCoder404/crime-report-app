@@ -66,8 +66,8 @@ export default function SignUp() {
   };
 
   return (
-    <div className="bg-black flex justify-center items-center">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md z-50">
+    <div className="bg-black flex md:flex-row justify-center gap-10 md:gap-0 flex-col items-center">
+      <div className="sm:mx-auto sm:w-full sm:max-w-md mt-10 md:mt-0 z-40">
         <h1 className="text-center text-3xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent mb-2">
           Create Account
         </h1>
@@ -76,7 +76,7 @@ export default function SignUp() {
         </h2>
       </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md no-effect">
+      <div className="mt-8 sm:mx-auto w-full px-4 pb-5 lg:pb-0 sm:max-w-md no-effect">
         <div className="bg-neutral-900/50 backdrop-blur-sm py-8 px-4 shadow-xl border border-neutral-800 rounded-xl sm:px-10">
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>

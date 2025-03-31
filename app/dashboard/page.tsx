@@ -17,6 +17,31 @@ export default function Dashboard() {
   const [isLoading, setIsLoading] = useState(true);
   const [dateRange, setDateRange] = useState<[Dayjs | null, Dayjs | null] | null>(null);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalImage, setModalImage] = useState<string | null>(null);
+  const [visibleReports, setVisibleReports] = useState(10); // Number of reports to show initially
+  const [isLoadingMore, setIsLoadingMore] = useState(false); // State for button spinner
+
+  const loadMoreReports = () => {
+    setIsModalOpen(true);
+    setIsLoadingMore(true); 
+    setTimeout(() => {
+      setVisibleReports((prev) => prev + 10);
+      setIsLoadingMore(false);
+    }, 3000);
+  };
+  const openModal = (image: any) => {
+    setIsLoadingMore(true);
+    setModalImage(image);
+  };
+
+  const closeModal = () => {
+    setModalImage(null);
+    setIsModalOpen(false);
+  };
+
+  
+
   useEffect(() => {
     fetchReports();
   }, []);
@@ -120,12 +145,12 @@ export default function Dashboard() {
       </nav>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 no-effect">
-        <div className="mb-8 flex flex-wrap gap-4 items-center justify-between">
-          <div className="flex gap-4">
+        <div className="mb-8 flex lg:flex-row flex-col gap-4 lg:items-center lg:justify-between">
+          <div className="flex md:flex-row flex-col w-full lg:w-auto gap-4">
             <Select
               value={filter}
               onChange={(value) => setFilter(value as ReportStatus | "ALL")}
-              className="w-60 h-12 bg-neutral-900 text-neutral-300 rounded-xl"
+              className="md:w-60 h-12 bg-neutral-900 text-neutral-300 rounded-xl"
               popupClassName="custom-dropdown"
               options={[
                 { value: "ALL", label: "All Status" },
@@ -139,7 +164,7 @@ export default function Dashboard() {
             <Select
               value={typeFilter}
               onChange={(value) => setTypeFilter(value as ReportType | "ALL")}
-              className="w-60 h-12 bg-neutral-900 text-neutral-300 rounded-xl"
+              className="md:w-60 h-12 bg-neutral-900 text-neutral-300 rounded-xl"
               popupClassName="custom-dropdown"
               options={[
                 { value: "ALL", label: "All Types" },
@@ -149,32 +174,29 @@ export default function Dashboard() {
                 })),
               ]}
             />
-
             <DatePicker.RangePicker
-              className="w-60 h-12 rounded-xl"
+              className="md:w-60 h-12 rounded-xl"
               presets={rangePresets}
               onChange={onRangeChange}
             />
 
           </div>
 
-          <div className="text-neutral-400">
+          <div className="text-neutral-400 text-end lg:text-start z-40">
             {filteredReports.length} Reports
           </div>
         </div>
 
-        <div className="grid gap-4">
-          {filteredReports.map((report) => (
+        <div className="flex flex-col gap-5">
+          {filteredReports.slice(0, visibleReports).map((report) => (
             <div
               key={report.id}
               className="bg-neutral-900/50 backdrop-blur-sm rounded-xl p-6 border border-neutral-800 hover:border-neutral-700 transition-all"
             >
-              <div className="flex justify-between items-start gap-6">
+              <div className="flex flex-col md:flex-row justify-between items-start gap-6">
                 <div className="space-y-4 flex-1">
-                  <div className="flex items-center gap-3">
-                    <h2 className="text-lg font-medium text-neutral-200">
-                      {report.title}
-                    </h2>
+                  <div className="md:flex items-center gap-3">
+                    <h2 className="text-lg font-medium text-neutral-200">{report.title}</h2>
                     <span
                       className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(
                         report.status
@@ -183,9 +205,7 @@ export default function Dashboard() {
                       {report.status}
                     </span>
                   </div>
-                  <p className="text-neutral-400 text-sm">
-                    {report.description}
-                  </p>
+                  <p className="text-neutral-400 text-sm">{report.description}</p>
                   <div className="flex flex-wrap gap-6 text-sm text-neutral-500">
                     <span className="flex items-center gap-2">
                       <div className="w-4 h-4 rounded-full bg-neutral-800 flex items-center justify-center">
@@ -207,27 +227,33 @@ export default function Dashboard() {
                     </span>
                   </div>
                   {report.image && (
-                    <img
-                      src={report.image}
-                      alt="Report"
-                      className="mt-4 rounded-lg border border-neutral-800"
-                    />
+                    <div className="relative group">
+                      <img
+                        src={report.image}
+                        alt="Report"
+                        className="mt-4 h-96 w-full object-cover rounded-lg border border-neutral-800"
+                      />
+                      <button
+                        onClick={() => openModal(report.image)}
+                        className="absolute inset-0 flex items-center justify-center bg-black/50 text-white opacity-0 group-hover:opacity-100 transition-opacity rounded-lg"
+                      >
+                        Preview
+                      </button>
+                    </div>
                   )}
                 </div>
                 <Select
                   value={report.status}
                   onChange={(value) => {
-                    // Optimistically update the UI
                     setReports((prevReports) =>
                       prevReports.map((r) =>
                         r.id === report.id ? { ...r, status: value as ReportStatus } : r
                       )
                     );
 
-                    // Perform the API call in the background
                     updateReportStatus(report.id, value as ReportStatus);
                   }}
-                  className="bg-neutral-900 text-neutral-300 rounded-lg"
+                  className="bg-neutral-900 text-neutral-300 rounded-lg w-full md:w-auto"
                   popupClassName="custom-dropdown"
                   options={Object.values(ReportStatus).map((status) => ({
                     value: status,
@@ -237,6 +263,40 @@ export default function Dashboard() {
               </div>
             </div>
           ))}
+
+          {visibleReports < filteredReports.length && (
+            <div className="w-full justify-center items-center flex">
+                <button
+                  onClick={loadMoreReports}
+                  className="mt-4 w-40 px-4 py-2 justify-center items-center flex bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                  disabled={isLoadingMore}
+                >
+                  {isLoadingMore ? (
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                  ) : (
+                    "Load More"
+                  )}
+                </button>
+            </div>
+          )}
+
+          {isModalOpen && modalImage && (
+            <div className="fixed inset-0 p-5 bg-black/80 backdrop-blur-lg flex items-center justify-center z-50">
+              <div className="relative">
+                <img
+                  src={modalImage}
+                  alt="Full Preview"
+                  className="max-w-full max-h-screen rounded-lg"
+                />
+                <button
+                  onClick={closeModal}
+                  className="absolute top-4 right-4 text-white bg-black/50 h-8 w-8 rounded-full hover:bg-black/70"
+                >
+                  ✕
+                </button>
+              </div>
+            </div>
+          )}
 
           {filteredReports.length === 0 && (
             <div className="text-center py-12 text-neutral-500 bg-neutral-900/50 rounded-xl border border-neutral-800">

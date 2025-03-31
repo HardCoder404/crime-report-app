@@ -1,4 +1,5 @@
 "use client"
+import useWindowSize from '@/hooks/useWindowSize';
 import { MapPin, Phone, Mail, Printer } from 'lucide-react';
 import { useState } from 'react';
 
@@ -10,7 +11,7 @@ export default function ContactForm() {
         phone: '',
         message: '',
     });
-
+    const { width } = useWindowSize();
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
@@ -28,39 +29,42 @@ export default function ContactForm() {
         <>
             <section className="relative overflow-hidden rounded-2xl p-8 sm:p-12">
                 <div className="absolute inset-0 bg-zinc-900 -z-10" />
-                <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8">
                     {/* Left Section */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        {/* Visit Office */}
-                        <div className="flex flex-col items-center justify-center rounded-xl bg-white/5 border border-white/10 p-6 backdrop-blur-md">
-                            <MapPin size={28} className="text-blue-400" />
-                            <p className="text-white text-lg font-semibold mt-2">Visit office</p>
-                            <p className="text-zinc-400 text-sm text-center">
-                                123 Main Street, Delhi, India
-                            </p>
-                        </div>
+                    {
+                        width > 768 &&
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            {/* Visit Office */}
+                            <div className="flex flex-col items-center justify-center rounded-xl bg-white/5 border border-white/10 p-6 backdrop-blur-md">
+                                <MapPin size={28} className="text-blue-400" />
+                                <p className="text-white text-lg font-semibold mt-2">Visit office</p>
+                                <p className="text-zinc-400 text-sm text-center">
+                                    123 Main Street, Delhi, India
+                                </p>
+                            </div>
 
-                        {/* Call Us */}
-                        <div className="flex flex-col items-center justify-center rounded-xl bg-white/5 border border-white/10 p-6 backdrop-blur-md">
-                            <Phone size={28} className="text-blue-400" />
-                            <p className="text-white text-lg font-semibold mt-2">Call us</p>
-                            <p className="text-zinc-400 text-sm">+91 9854786525</p>
-                        </div>
+                            {/* Call Us */}
+                            <div className="flex flex-col items-center justify-center rounded-xl bg-white/5 border border-white/10 p-6 backdrop-blur-md">
+                                <Phone size={28} className="text-blue-400" />
+                                <p className="text-white text-lg font-semibold mt-2">Call us</p>
+                                <p className="text-zinc-400 text-sm">+91 9854786525</p>
+                            </div>
 
-                        {/* Chat to Us */}
-                        <div className="flex flex-col items-center justify-center rounded-xl bg-white/5 border border-white/10 p-6 backdrop-blur-md">
-                            <Mail size={28} className="text-blue-400" />
-                            <p className="text-white text-lg font-semibold mt-2">Chat to us</p>
-                            <p className="text-zinc-400 text-sm">support@SafeReport.com</p>
-                        </div>
+                            {/* Chat to Us */}
+                            <div className="flex flex-col items-center justify-center rounded-xl bg-white/5 border border-white/10 p-6 backdrop-blur-md">
+                                <Mail size={28} className="text-blue-400" />
+                                <p className="text-white text-lg font-semibold mt-2">Chat to us</p>
+                                <p className="text-zinc-400 text-sm">support@SafeReport.com</p>
+                            </div>
 
-                        {/* Fax */}
-                        <div className="flex flex-col items-center justify-center rounded-xl bg-white/5 border border-white/10 p-6 backdrop-blur-md">
-                            <Printer size={28} className="text-blue-400" />
-                            <p className="text-white text-lg font-semibold mt-2">Fax</p>
-                            <p className="text-zinc-400 text-sm">+1-548-2588</p>
-                        </div>
-                    </div>
+                            {/* Fax */}
+                            <div className="flex flex-col items-center justify-center rounded-xl bg-white/5 border border-white/10 p-6 backdrop-blur-md">
+                                <Printer size={28} className="text-blue-400" />
+                                <p className="text-white text-lg font-semibold mt-2">Fax</p>
+                                <p className="text-zinc-400 text-sm">+1-548-2588</p>
+                            </div>
+                        </div> 
+                    }
 
                     {/* Right Section */}
                     <div className='p-5 rounded-2xl bg-gradient-to-br from-sky-500/20 via-blue-500/10 to-transparent backdrop-blur-md'>
@@ -117,6 +121,41 @@ export default function ContactForm() {
                             </div>
                         )}
                     </div>
+
+                    {
+                        width <= 768 &&
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            {/* Visit Office */}
+                            <div className="flex flex-col items-center justify-center rounded-xl bg-white/5 border border-white/10 p-6 backdrop-blur-md">
+                                <MapPin size={28} className="text-blue-400" />
+                                <p className="text-white text-lg font-semibold mt-2">Visit office</p>
+                                <p className="text-zinc-400 text-sm text-center">
+                                    123 Main Street, Delhi, India
+                                </p>
+                            </div>
+
+                            {/* Call Us */}
+                            <div className="flex flex-col items-center justify-center rounded-xl bg-white/5 border border-white/10 p-6 backdrop-blur-md">
+                                <Phone size={28} className="text-blue-400" />
+                                <p className="text-white text-lg font-semibold mt-2">Call us</p>
+                                <p className="text-zinc-400 text-sm">+91 9854786525</p>
+                            </div>
+
+                            {/* Chat to Us */}
+                            <div className="flex flex-col items-center justify-center rounded-xl bg-white/5 border border-white/10 p-6 backdrop-blur-md">
+                                <Mail size={28} className="text-blue-400" />
+                                <p className="text-white text-lg font-semibold mt-2">Chat to us</p>
+                                <p className="text-zinc-400 text-sm">support@SafeReport.com</p>
+                            </div>
+
+                            {/* Fax */}
+                            <div className="flex flex-col items-center justify-center rounded-xl bg-white/5 border border-white/10 p-6 backdrop-blur-md">
+                                <Printer size={28} className="text-blue-400" />
+                                <p className="text-white text-lg font-semibold mt-2">Fax</p>
+                                <p className="text-zinc-400 text-sm">+1-548-2588</p>
+                            </div>
+                        </div>
+                    }
                 </div>
             </section>
 

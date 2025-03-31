@@ -11,7 +11,7 @@ export default function SubmitReport() {
         <div className="absolute inset-0 h-full w-full bg-gradient-to-b from-transparent to-black"></div>
       </div>
 
-      <main className="relative px-6 pt-32">
+      <main className="relative px-4 md:px-6 pt-32">
         <div className="mx-auto max-w-3xl">
           <div className="flex flex-col items-center text-center">
             <div className="inline-flex h-9 items-center gap-2 rounded-full border border-sky-500/20 bg-sky-500/10 px-4 text-sm text-sky-400">
@@ -41,7 +41,7 @@ export default function SubmitReport() {
             </p>
           </div>
 
-          <div className="mt-16 mb-5 bg-zinc-900/50 rounded-2xl border border-white/5 p-6 no-effect">
+          <div className="mt-16 mb-5 bg-zinc-900/50 rounded-2xl border border-white/5 p-3 md:p-6 no-effect">
             <ReportWizard />
           </div>
         </div>

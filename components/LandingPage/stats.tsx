@@ -30,7 +30,7 @@ const Stats = () => {
         };
     }, []);
     return (
-        <div ref={statsRef} className="mt-40 rounded-2xl bg-zinc-900 p-8">
+        <div ref={statsRef} className="md:mt-40 rounded-2xl bg-zinc-900 p-8">
             <div className="grid gap-y-8 sm:grid-cols-3">
                 {[
                     { value: 100000, label: "Reports Filed", suffix: "+" },

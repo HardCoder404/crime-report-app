@@ -42,7 +42,7 @@ export default async function RootLayout({
             {/* Smooth blending gradient */}
             <div className="absolute inset-0 h-full w-full bg-gradient-to-b from-transparent to-black"></div>
           </div>
-          
+
           {
             userRole !== "ADMIN" ?
               <Navbar /> : <></>
@@ -53,7 +53,7 @@ export default async function RootLayout({
               {children}
             </Providers>
           </main>
-          <ChatBot />
+          {userRole !== "ADMIN" && <ChatBot />}
         </div>
       </body>
     </html>

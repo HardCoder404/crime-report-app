@@ -5,7 +5,7 @@ const Footer = () => {
   return (
       <footer className="w-full bg-transparent backdrop-blur-sm">
           <div className="container flex flex-col gap-8">
-              <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-4">
+              <div className="grid gap-8 grid-cols-2 md:grid-cols-4">
                   <div className="space-y-4">
                       <div className="flex items-center gap-2 font-bold">
                           <div className="size-8 rounded-lg bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center text-white">
@@ -72,7 +72,7 @@ const Footer = () => {
                           </Link>
                       </div>
                   </div>
-                  <div className="space-y-4 lg:pl-20">
+                  <div className="space-y-4 text-end md:text-start lg:pl-20">
                       <h4 className="text-sm font-bold text-white">Product</h4>
                       <ul className="space-y-2 text-sm">
                           <li>
@@ -122,7 +122,7 @@ const Footer = () => {
                           </li>
                       </ul>
                   </div>
-                  <div className="space-y-4 lg:pl-20">
+                  <div className="space-y-4 text-end md:text-start lg:pl-20">
                       <h4 className="text-sm font-bold text-white">Company</h4>
                       <ul className="space-y-2 text-sm">
                           <li>

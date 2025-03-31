@@ -3,7 +3,7 @@ import React from 'react'
 
 const FeatureGrid = () => {
   return (
-      <div className="mt-40 grid gap-6 sm:grid-cols-3">
+      <div className="md:mt-40 grid gap-6 sm:grid-cols-3">
           {[
               {
                   title: "Military-Grade Encryption",

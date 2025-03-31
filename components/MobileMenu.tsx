@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -6,10 +7,11 @@ interface MobileMenuProps {
 }
 
 export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
+  const pathname = usePathname();
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 md:hidden">
+    <div className="fixed inset-0 z-50 lg:hidden">
       {/* Backdrop */}
       <div
         className="fixed inset-0 bg-black/60 backdrop-blur-sm"
@@ -41,41 +43,25 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           </div>
 
           <nav className="flex flex-col space-y-4">
-            <Link
-              href="/submit-report"
-              className="text-sm text-zinc-400 hover:text-white transition-colors"
-              onClick={onClose}
-            >
-              Submit Report
-            </Link>
-            <Link
-              href="/track-report"
-              className="text-sm text-zinc-400 hover:text-white transition-colors"
-              onClick={onClose}
-            >
-              Track Report
-            </Link>
-            <Link
-              href="/how-it-works"
-              className="text-sm text-zinc-400 hover:text-white transition-colors"
-              onClick={onClose}
-            >
-              How It Works
-            </Link>
-            <Link
-              href="/resources"
-              className="text-sm text-zinc-400 hover:text-white transition-colors"
-              onClick={onClose}
-            >
-              Resources
-            </Link>
-            <Link
-              href="/contact"
-              className="text-sm text-zinc-400 hover:text-white transition-colors"
-              onClick={onClose}
-            >
-              Contact
-            </Link>
+            {[
+              { href: "/submit-report", label: "Submit Report" },
+              { href: "/track-report", label: "Track Report" },
+              { href: "/how-it-works", label: "How It Works" },
+              { href: "/auth/signin", label: "Admin Login" },
+              { href: "/contact", label: "Contact" },
+            ].map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`text-sm transition-colors ${pathname === link.href
+                    ? "text-white"
+                    : "text-zinc-400 hover:text-white"
+                  }`}
+                onClick={onClose}
+              >
+                {link.label}
+              </Link>
+            ))}
           </nav>
         </div>
       </div>

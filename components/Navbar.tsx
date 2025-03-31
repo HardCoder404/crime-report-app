@@ -3,10 +3,12 @@ import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import MobileMenu from "./MobileMenu";
+import useWindowSize from "@/hooks/useWindowSize";
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const {width} = useWindowSize();
 
   return (
     <>
@@ -38,7 +40,7 @@ export default function Navbar() {
             </div>
 
             {/* Main Navigation */}
-            <div className="hidden md:flex items-center space-x-6">
+            <div className="hidden lg:flex items-center space-x-6">
               {[
                 { href: "/submit-report", label: "Submit Report" },
                 { href: "/track-report", label: "Track Report" },
@@ -62,7 +64,7 @@ export default function Navbar() {
             <div className="flex items-center space-x-4">
               <Link
                 href="/contact"
-                className={`hidden md:block text-sm transition-colors ${pathname === "/contact"
+                className={`hidden lg:block text-sm transition-colors ${pathname === "/contact"
                     ? "text-white"
                     : "text-zinc-400 hover:text-white"
                   }`}
@@ -71,12 +73,12 @@ export default function Navbar() {
               </Link>
               <button className="group flex h-9 items-center gap-2 rounded-full bg-red-500/10 pl-4 pr-5 text-sm font-medium text-red-500 ring-1 ring-inset ring-red-500/20 transition-all hover:bg-red-500/20">
                 <span className="h-1.5 w-1.5 rounded-full bg-red-500 animate-pulse" />
-                Emergency: 911
+                {width < 768 ? "911" : " Emergency: 911"}
               </button>
 
               {/* Mobile Menu Button */}
               <button
-                className="md:hidden p-2 text-zinc-400 hover:text-white"
+                className="lg:hidden p-2 text-zinc-400 hover:text-white"
                 onClick={() => setIsMobileMenuOpen(true)}
               >
                 <svg
