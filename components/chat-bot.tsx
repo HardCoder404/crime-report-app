@@ -8,6 +8,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { MessageCircle, X, Send, Loader2 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { GoogleGenerativeAI } from "@google/generative-ai"
+import Image from "next/image"
 
 export default function ChatBot() {
     const [isOpen, setIsOpen] = useState(false)
@@ -76,12 +77,12 @@ export default function ChatBot() {
                         <div className="flex items-center space-x-2">
                             <img src="/bot.svg" alt="Chat Icon" className="w-10 h-10 text-sky-500" />
                             <div>
-                             <span className="font-medium">SafeReport Assistant</span>
-                             {
-                                input || isTyping ? 
-                             <h1 className="text-xs flex items-center gap-1 text-green-400"><h2 className="w-2 h-2 bg-green-400 rounded-full"></h2>  Online
-                             </h1> : <div className="text-xs text-gray-500">Offline</div>
-                             }
+                                <span className="font-medium">SafeReport Assistant</span>
+                                {
+                                    input || isTyping ?
+                                        <h1 className="text-xs flex items-center gap-1 text-green-400"><h2 className="w-2 h-2 bg-green-400 rounded-full"></h2>  Online
+                                        </h1> : <div className="text-xs text-gray-500">Offline</div>
+                                }
                             </div>
                         </div>
                         <Button variant="ghost" size="icon" onClick={toggleChat} className="h-8 hover:text-white w-8 rounded-full hover:bg-gray-800">
@@ -96,7 +97,7 @@ export default function ChatBot() {
                                 <p>How can I help you with SafeReport today?</p>
                             </div>
                         ) : (
-                            
+
                             <>
                                 {messages.map((message) => (
                                     <div

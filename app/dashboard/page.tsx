@@ -7,6 +7,7 @@ import { signOut } from "next-auth/react";
 import { DatePicker, Select, TimeRangePickerProps } from "antd";
 import dayjs, { Dayjs } from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
+
 dayjs.extend(isBetween);
 
 export default function Dashboard() {
@@ -24,14 +25,14 @@ export default function Dashboard() {
 
   const loadMoreReports = () => {
     setIsModalOpen(true);
-    setIsLoadingMore(true); 
+    setIsLoadingMore(true);
     setTimeout(() => {
       setVisibleReports((prev) => prev + 10);
       setIsLoadingMore(false);
     }, 3000);
   };
   const openModal = (image: any) => {
-    setIsLoadingMore(true);
+    setIsModalOpen(true);
     setModalImage(image);
   };
 
@@ -40,7 +41,7 @@ export default function Dashboard() {
     setIsModalOpen(false);
   };
 
-  
+
 
   useEffect(() => {
     fetchReports();
@@ -266,17 +267,17 @@ export default function Dashboard() {
 
           {visibleReports < filteredReports.length && (
             <div className="w-full justify-center items-center flex">
-                <button
-                  onClick={loadMoreReports}
-                  className="mt-4 w-40 px-4 py-2 justify-center items-center flex bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-                  disabled={isLoadingMore}
-                >
-                  {isLoadingMore ? (
-                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                  ) : (
-                    "Load More"
-                  )}
-                </button>
+              <button
+                onClick={loadMoreReports}
+                className="mt-4 w-40 px-4 py-2 justify-center items-center flex bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                disabled={isLoadingMore}
+              >
+                {isLoadingMore ? (
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                ) : (
+                  "Load More"
+                )}
+              </button>
             </div>
           )}
 
@@ -299,7 +300,7 @@ export default function Dashboard() {
           )}
 
           {filteredReports.length === 0 && (
-            <div className="text-center py-12 text-neutral-500 bg-neutral-900/50 rounded-xl border border-neutral-800">
+            <div className="text-center py-12 z-40 text-neutral-500 bg-neutral-900/50 rounded-xl border border-neutral-800">
               No reports found matching the selected filters.
             </div>
           )}

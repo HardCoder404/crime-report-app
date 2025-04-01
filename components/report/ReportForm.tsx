@@ -6,6 +6,7 @@ import crypto from "crypto";
 import { Select } from 'antd';
 
 
+
 const REPORT_TYPES = [
   "Theft",
   "Fire Outbreak",
@@ -148,9 +149,9 @@ export function ReportForm({ onComplete }: ReportFormProps) {
             setFormData((prev) => ({ ...prev, incidentType: "EMERGENCY" }))
           }
           className={`p-6 rounded-2xl border-2 transition-all duration-200 ${formData.incidentType === "EMERGENCY"
-              ? "bg-red-500/20 border-red-500 shadow-lg shadow-red-500/20"
-              : "bg-zinc-900/50 border-zinc-800 hover:bg-red-500/10 hover:border-red-500/50"
-            }`} 
+            ? "bg-red-500/20 border-red-500 shadow-lg shadow-red-500/20"
+            : "bg-zinc-900/50 border-zinc-800 hover:bg-red-500/10 hover:border-red-500/50"
+            }`}
         >
           <div className="flex flex-col items-center space-y-2">
             <svg
@@ -179,8 +180,8 @@ export function ReportForm({ onComplete }: ReportFormProps) {
             setFormData((prev) => ({ ...prev, incidentType: "NON_EMERGENCY" }))
           }
           className={`p-6 rounded-2xl border-2 transition-all duration-200 ${formData.incidentType === "NON_EMERGENCY"
-              ? "bg-orange-500/20 border-orange-500 shadow-lg shadow-orange-500/20"
-              : "bg-zinc-900/50 border-zinc-800 hover:bg-orange-500/10 hover:border-orange-500/50"
+            ? "bg-orange-500/20 border-orange-500 shadow-lg shadow-orange-500/20"
+            : "bg-zinc-900/50 border-zinc-800 hover:bg-orange-500/10 hover:border-orange-500/50"
             }`}
         >
           <div className="flex flex-col items-center space-y-2">
@@ -303,10 +304,10 @@ export function ReportForm({ onComplete }: ReportFormProps) {
             value: type,
             label: type
           }))}
-          
+
         />
 
-        
+
       </div>
 
       {/* Location */}

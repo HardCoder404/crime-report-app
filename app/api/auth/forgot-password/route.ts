@@ -60,7 +60,7 @@ export async function POST(request: Request) {
       { message: "OTP sent to your email" },
       { status: 200 }
     );
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Forgot password error:", error);
     return NextResponse.json(
       { error: "Error processing forgot password request" },
@@ -111,7 +111,7 @@ export async function PUT(request: Request) {
       { message: "Password reset successful" },
       { status: 200 }
     );
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Verify OTP error:", error);
     return NextResponse.json({ error: "Error verifying OTP" }, { status: 500 });
   }

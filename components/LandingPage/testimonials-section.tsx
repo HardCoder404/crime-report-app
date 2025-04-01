@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react"
 import { motion, useAnimation, useInView } from "framer-motion"
 import { Star, Award, Shield } from "lucide-react"
+import Image from "next/image"
 
 export default function TestimonialsSection() {
     const containerRef = useRef<HTMLDivElement>(null)
@@ -138,7 +139,9 @@ export default function TestimonialsSection() {
                                             </div>
                                         </div>
 
-                                        <p className="mb-4 text-sm leading-relaxed text-zinc-300">"{testimonial.quote}"</p>
+                                        <p className="mb-4 text-sm leading-relaxed text-zinc-300">
+                                            &ldquo;{testimonial.quote}&rdquo;
+                                        </p>
 
                                         <div className="flex items-center gap-1.5 rounded-full bg-sky-500/10 px-3 py-1 text-xs text-sky-400 w-fit">
                                             {testimonial.badgeIcon}

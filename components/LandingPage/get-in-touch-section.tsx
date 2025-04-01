@@ -45,7 +45,7 @@ export default function GetInTouchSection() {
                         </button>
                     </form>
                     <p className="mt-3 text-xs text-zinc-500">
-                        By subscribing, you agree with SafeReport's <span className="text-blue-500 cursor-pointer">Terms of Service</span> and <span className="text-blue-500 cursor-pointer">Privacy Policy</span>.
+                        By subscribing, you agree with SafeReport&rsquo;s <span className="text-blue-500 cursor-pointer">Terms of Service</span> and <span className="text-blue-500 cursor-pointer">Privacy Policy</span>.
                     </p>
                 </div>
             </div>

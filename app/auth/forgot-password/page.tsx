@@ -225,7 +225,7 @@ export default function ForgotPassword() {
                 </h1>
             </div>
 
-            <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+            <div className="md:mt-8 sm:mx-auto sm:w-full sm:max-w-md">
                 <div className="bg-neutral-900/50 backdrop-blur-sm py-8 px-4 shadow-xl border border-neutral-800 rounded-xl sm:px-10">
                     <form className="space-y-6" onSubmit={handleSubmit}>
                         <div>
@@ -266,8 +266,8 @@ export default function ForgotPassword() {
 
             {/* OTP Modal */}
             {isOtpModalOpen && (
-                <div className="fixed pt-40 inset-0 flex items-center justify-center z-50 bg-black/70">
-                    <div className="bg-neutral-900 px-6 pt-10 pb-9 shadow-xl w-full max-w-lg rounded-2xl border border-neutral-800 relative">
+                <div className="fixed md:pt-40 px-5 inset-0 flex items-center justify-center z-50 bg-black/70">
+                    <div className="bg-neutral-900 px-6 pt-10 pb-9 shadow-xl w-full max-w-lg sm:max-w-md md:max-w-lg rounded-2xl border border-neutral-800 relative">
 
                         {/* Back Button */}
                         <button
@@ -281,7 +281,7 @@ export default function ForgotPassword() {
                             }}
                             className="absolute gap-1 flex items-center top-4 left-4 text-sm text-neutral-400 hover:text-neutral-200 transition"
                         >
-                         <ArrowLeft size={18}/>    Back
+                            <ArrowLeft size={18} /> Back
                         </button>
 
                         {/* Countdown Timer */}
@@ -299,14 +299,14 @@ export default function ForgotPassword() {
                                 <input
                                     key={index}
                                     ref={(el) => {
-                                        inputRefs.current[index] = el
+                                        inputRefs.current[index] = el;
                                     }}
                                     type="text"
                                     maxLength={1}
                                     value={digit}
                                     onChange={(e) => handleOtpChange(index, e.target.value)}
                                     onKeyDown={(e) => handleKeyDown(index, e)}
-                                    className="w-14 h-14 text-center text-lg font-medium border border-neutral-700 bg-neutral-800 text-white rounded-lg outline-none focus:ring-2 focus:ring-blue-600"
+                                    className="md:w-14 w-10 h-10 md:h-14 text-center text-lg font-medium border border-neutral-700 bg-neutral-800 text-white rounded-lg outline-none focus:ring-2 focus:ring-blue-600"
                                 />
                             ))}
                         </div>
@@ -338,7 +338,7 @@ export default function ForgotPassword() {
                             )}
 
                             <p className="text-sm text-neutral-400 text-center">
-                                Didn't receive code?{" "}
+                                Didn’t receive code?{" "}
                                 <button
                                     onClick={handleResendOtp}
                                     disabled={isLoading || isResendDisabled}
@@ -354,7 +354,7 @@ export default function ForgotPassword() {
 
             {/* Reset Password Modal */}
             {isResetPasswordModalOpen && (
-                <div className="fixed pt-40 inset-0 flex items-center justify-center z-50 bg-black/70">
+                <div className="fixed md:pt-40 px-5 inset-0 flex items-center justify-center z-50 bg-black/70">
                     <div className="bg-neutral-900 px-6 pt-10 pb-9 shadow-xl w-full max-w-lg rounded-2xl border border-neutral-800">
                         <div className="flex flex-col items-center justify-center text-center space-y-2">
                             <h2 className="text-3xl font-semibold text-neutral-200">Reset Password</h2>
