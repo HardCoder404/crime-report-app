@@ -23,14 +23,6 @@ This cutting-edge anonymous reporting system is developed using Next.js 14, offe
 
 ## <a name="quick-start">🤸 Quick Start</a>
 
-**Prerequisites**
-
-Make sure you have the following installed:
-
-- [Node.js](https://nodejs.org/en)
-- [npm](https://www.npmjs.com/)
-- [Git](https://git-scm.com/)
-
 **Installation**
 
 ```bash
